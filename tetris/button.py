@@ -4,8 +4,7 @@ from constants import WHITE
 
 
 class ImageButton:
-    def __init__(self, x, y, width, height, text, image_path, hover_image_path=None, font_size=36, font_color=WHITE,
-                 sound_path=None):
+    def __init__(self, x, y, width, height, text, image_path, hover_image_path=None, font_size=36, font_color=WHITE):
         self.x = x
         self.y = y
         self.width = width
@@ -26,9 +25,6 @@ class ImageButton:
 
         # создаём прямоугольник с координатами и размером image
         self.rect = self.image.get_rect(topleft=(x, y))
-        self.sound = None
-        if sound_path:
-            self.sound = pygame.mixer.Sound(sound_path)
         self.is_hovered = False
 
     def __str__(self):
@@ -55,10 +51,6 @@ class ImageButton:
         self.is_hovered = self.rect.collidepoint(mouse_pos)
 
     def handle_event(self, event: pygame.event.Event):
-        # отправляет в очередь событий кастомный ивент нажатой кнопки!!
         if event.type == pygame.MOUSEBUTTONDOWN and self.is_hovered:
-            if self.sound:
-                self.sound.play()
-            # BtnEvent получит название кнопки, чтобы потом мы могли понять, какая кнопка нажата
             event = pygame.event.Event(pygame.USEREVENT, BtnEvent=self)
             pygame.event.post(event)

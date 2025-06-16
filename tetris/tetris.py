@@ -28,7 +28,7 @@ class TetrisGame:
         self.score = -1
         self.lines_cleared = 0
 
-        pygame.display.set_caption("у меня есть игры на телефоне..")
+        pygame.display.set_caption("т-те.. как там его .. тетр.. тетраэдр ")
 
     def prepare_new_game(self, mode):
 
@@ -49,20 +49,19 @@ class TetrisGame:
         self.fall_threshold         = FALL_THRESHOLD
 
     def clear_lines(self):
-        """Очистка заполненных линий"""
         lines_cleared = 0
-        line = HEIGHT - 1
+        line = HEIGHT - 1   # координата линии
 
         for row in range(HEIGHT - 1, -1, -1):
             if not all(self.field[row]):
-                # Копируем строку вниз
+                # копируем
                 for i in range(WIDTH):
                     self.field[line][i] = self.field[row][i]
                 line -= 1
-            else:
+            else: # ряд заполнен
                 lines_cleared += 1
 
-        # Очищаем верхние строки
+        # очищаем верхние строки
         for row in range(line + 1):
             for i in range(WIDTH):
                 self.field[row][i] = 0
@@ -71,7 +70,6 @@ class TetrisGame:
 
     @staticmethod
     def handle_input():
-        """Обработка пользовательского ввода"""
         rotate = False
         dx, dy = 0, 0
         fall_multiple = 1
@@ -113,10 +111,10 @@ class TetrisGame:
             self.figure.save_on_field(self.field, self.figure.color)
 
             # подчищаем линии
-            lines = self.clear_lines()
-            if lines > 0:
-                self.lines_cleared += lines
-                self.score += lines * 100
+            lines_cleared = self.clear_lines()
+            if lines_cleared > 0:
+                self.lines_cleared += lines_cleared
+                self.score += lines_cleared * 100
 
             # сброс скорости падения
             # каждые 500 очков ускорение
@@ -140,7 +138,6 @@ class TetrisGame:
         return dy
 
     def game_over(self):
-        self.field = [[0 for x in range(WIDTH)] for y in range(HEIGHT)]
         print(f"Game Over! Final Score: {self.score}")
 
     def run(self):
@@ -168,30 +165,26 @@ class TetrisGame:
                 running = False
 
             # рисуем всё
-            self.drawer.draw(self.figure,
-                             self.score,
-                             self.lines_cleared,
-                             self.field
-                             )
+            self.drawer.draw(self.figure, self.score, self.lines_cleared, self.field)
 
     def main_menu(self):
-        btn_width = GAME_RES[1] // 4
-        btn_height = btn_width / 3 * 1.5
+        btn_width = GAME_RES[1] // 3
+        btn_height = btn_width / 3
         btn_easy_mode = ImageButton(GAME_RES[0] / 2 - (btn_width / 2), GAME_RES[1] // 6, btn_width, btn_height,
-                                    "Easy Mode",
-                                    "assets/btn_background.jpg",
-                                    "assets/btn_background_hovered.jpg",
+                                    "",
+                                    "assets/5.jpg",
+                                    "assets/4.jpg",
                                     font_size=TILE)
         btn_hard_mode = ImageButton(GAME_RES[0] / 2 - (btn_width / 2), GAME_RES[1] // 3, btn_width, btn_height,
-                                    "Hard Mode",
-                                    "assets/btn_background.jpg",
-                                    "assets/btn_background_hovered.jpg",
+                                    "",
+                                    "assets/2.jpg",
+                                    "assets/3.jpg",
                                     font_size=TILE,
-                                    font_color=RED)
+                                    font_color=GREEN_Z)
         btn_quit = ImageButton(GAME_RES[0] / 2 - (btn_width / 2), GAME_RES[1] // 1.25, btn_width, btn_height,
                                "Quit",
                                "assets/btn_background.jpg",
-                               "assets/btn_background_hovered.jpg",
+                               "assets/7.jpg",
                                font_size=TILE)
 
         btns = [btn_easy_mode, btn_hard_mode, btn_quit]
@@ -233,10 +226,3 @@ class TetrisGame:
 
             # btn_hard_mode.draw(self.screen, pygame.mouse.get_pos())
             pygame.display.flip()
-
-
-if __name__ == "__main__":
-    game = TetrisGame()
-    while True:
-        game.main_menu()
-        game.run()

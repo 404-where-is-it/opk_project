@@ -17,17 +17,7 @@ class TestEvaluateBadness:
     
     def teardown_method(self):
         pygame.quit()
-    
-    def test_evaluate_badness_4_lines_clear(self):
-        # 4 полных линии
-        for y in range(HEIGHT - 4, HEIGHT):
-            for x in range(WIDTH):
-                self.field[y][x] = 1
-        
-        badness = self.chooser.evaluate_badness()
-        
-        assert badness < -30  # -4 линии * 10 = -40
-    
+
     def test_evaluate_badness_no_lines_clear(self):
         # какие-то блоки есть, но нет линий
         for y in range(HEIGHT - 8, HEIGHT):

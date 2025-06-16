@@ -4,10 +4,10 @@ import pygame
 
 # Константы
 WIDTH, HEIGHT = 10, 20  # ширина и высота в клетках
-TILE = 50  # клетка в пикселях
+TILE =40 # клетка в пикселях
 GAME_RES = WIDTH * TILE, HEIGHT * TILE
 FPS = 60.0
-BORDER = 10
+BORDER = 5
 
 START_FALL_SPEED = 20
 FALL_THRESHOLD = 1000
@@ -36,25 +36,23 @@ BLACK = pygame.Color('black')
 WHITE = pygame.Color('white')
 GRAY = pygame.Color(40, 40, 40)
 HACKER = pygame.Color("#102614")
-
-# Традиционные цвета фигур Tetris
-CYAN = pygame.Color(0, 255, 255)  # I - голубой
-YELLOW = pygame.Color(255, 255, 0)  # O - желтый
-RED = pygame.Color(255, 0, 0)  # Z - красный
-ORANGE = pygame.Color(255, 165, 0)  # L - оранжевый
-PURPLE = pygame.Color(128, 0, 128)  # T - фиолетовый
-BLUE = pygame.Color(0, 0, 255)  # J - синий
-GREEN = pygame.Color(0, 255, 0)  # S - зеленый
+GREEN_I = pygame.Color("#a5f216")
+GREEN_O= pygame.Color("#316301")
+GREEN_Z = pygame.Color("#02fa34")
+GREEN_L = pygame.Color("#02fa86")
+GREEN_T = pygame.Color("#036336")
+GREEN_J = pygame.Color("#186303")
+GREEN_S = pygame.Color("#518244")
 
 # Цвета для каждой фигуры
 figures_color = [0] * NUM_OF_FIGURES
-figures_color[Figures.I.value] = CYAN
-figures_color[Figures.O.value] = YELLOW
-figures_color[Figures.Z.value] = RED
-figures_color[Figures.L.value] = ORANGE
-figures_color[Figures.T.value] = PURPLE
-figures_color[Figures.J.value] = BLUE
-figures_color[Figures.S.value] = GREEN
+figures_color[Figures.I.value] = GREEN_I
+figures_color[Figures.O.value] = GREEN_O
+figures_color[Figures.Z.value] = GREEN_Z
+figures_color[Figures.L.value] = GREEN_L
+figures_color[Figures.T.value] = GREEN_T
+figures_color[Figures.J.value] = GREEN_J
+figures_color[Figures.S.value] = GREEN_S
 
 figures_position = [(0, 0) * NUM_OF_BLOCKS] * NUM_OF_FIGURES
 figures_position[Figures.I.value] = ((0, 1), (0, 0), (0, 2), (0, 3))

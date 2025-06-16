@@ -56,7 +56,6 @@ class Figure:
         for i in range(4):
             new_y = self.figure[i].y + dy
             if new_y > HEIGHT - 1 or new_y < 0:
-                
                 return True
             if field[new_y][self.figure[i].x]:
                 return True

@@ -61,7 +61,7 @@ class FigureChooser:
     def evaluate_badness(self):
         lines_cleared = self.count_full_lines() # very good: -
         max_height = self.count_max_height()    # bad: +
-        return max_height - 10 * lines_cleared
+        return max_height - lines_cleared
 
     @staticmethod
     def figure_max(array):
@@ -77,13 +77,10 @@ class FigureChooser:
                 argmax.append(i)
         print('SUGGEST: ',*[i.name for i in argmax])
 
-        if argmax == []:
-            argmax.append(choice(list(Figures)))
         return argmax
 
     def get_worse_figure(self) -> Figures:
-        # выбирает самую плохую для пользователя фигуру
-        # (максимальная "плохость" из всех максимальных)
+        # (максимальная плохость)
         badness = [0] * NUM_OF_FIGURES
 
         figure = Figure()
@@ -98,7 +95,6 @@ class FigureChooser:
             min_badness = 9999999999
             dx = 1
             can_move_x = not figure.collision_x(dx, self.sim_field)
-            print(figure.num)
             while can_move_x:
                 for i in range(NUM_OF_ROTATES):
                     diff_y = self.simulate_drop(figure)
@@ -115,10 +111,8 @@ class FigureChooser:
 
                 can_move_x = not figure.collision_x(dx, self.sim_field)
                 figure.move_x(dx)
-                print(figure.figure[0].x, end=' ')
 
             badness[index.value] = min_badness
-            print()
         print()
         print(*[i.name for i in Figures], sep='\t')
         print(*badness, sep='\t')
